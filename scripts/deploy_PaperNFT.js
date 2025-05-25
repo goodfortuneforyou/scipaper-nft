@@ -1,19 +1,17 @@
-// scripts/deploy_PaperNFT.js
 const hre = require("hardhat");
 
 async function main() {
-  // Deploy the contract
+  const [deployer] = await hre.ethers.getSigners();
+  console.log("Deploying contracts with account:", deployer.address);
+
   const PaperNFT = await hre.ethers.getContractFactory("PaperNFT");
   const paperNFT = await PaperNFT.deploy();
 
-  await paperNFT.deployed();
-
-  console.log("PaperNFT deployed to:", paperNFT.address);
+  await paperNFT.waitForDeployment();
+  console.log("PaperNFT deployed to:", paperNFT.target);
 }
 
-main()
-  .then(() => process.exit(0))
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

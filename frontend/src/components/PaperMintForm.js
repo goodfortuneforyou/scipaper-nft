@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useAccount, useSigner } from 'wagmi'
 import { getPaperNFTContract } from '../utils/web3'
 
+
 export default function PaperMintForm() {
   const [doi, setDoi] = useState('')
   const { address } = useAccount()
